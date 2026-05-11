@@ -1,0 +1,61 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Browse Our Collection</h1>
+    <p>Thousands of titles waiting to be discovered</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div style="margin-bottom:16px">
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <i class="fa-solid fa-sliders"></i> Filters
+      </button>
+    </div>
+
+    <div class="shop-layout">
+      <aside class="shop-sidebar" [class.open]="sidebarOpen()">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Genre</h3>
+          <div class="genre-list">
+            <button class="genre-btn" [class.active]="selectedGenre() === 'all'" (click)="selectGenre('all')">All Books</button>
+            @for (genre of genres(); track genre) {
+              <button class="genre-btn" [class.active]="selectedGenre() === genre" (click)="selectGenre(genre)">{{ genre }}</button>
+            }
+          </div>
+        </div>
+      </aside>
+
+      <main>
+        <div class="shop-toolbar">
+          <span class="results-count">{{ books().length }} book{{ books().length !== 1 ? 's' : '' }} found</span>
+          <div class="shop-search">
+            <input type="text" placeholder="Search by title or author..." [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" (keydown)="onSearchKey($event)">
+            <button (click)="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+          <select (change)="onSortChange($event)">
+            <option value="newest">Newest First</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="title">Title A–Z</option>
+          </select>
+        </div>
+
+        @if (loading()) {
+          <div class="loading-books"><i class="fa-solid fa-spinner fa-spin"></i> Loading books...</div>
+        } @else if (books().length === 0) {
+          <div class="no-results">
+            <i class="fa-solid fa-book-open"></i>
+            <p>No books found. Try a different search or filter.</p>
+          </div>
+        } @else {
+          <div class="books-grid">
+            @for (book of books(); track book.id) {
+              <app-book-card [book]="book"></app-book-card>
+            }
+          </div>
+        }
+      </main>
+    </div>
+  </div>
+</section>

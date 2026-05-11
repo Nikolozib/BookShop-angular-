@@ -1,0 +1,132 @@
+<div class="page-header">
+  <div class="container">
+    <h1>Our Story</h1>
+    <p>A passion for books, turned into a place for everyone</p>
+  </div>
+</div>
+
+<section class="container">
+  <div class="about-intro">
+    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=80" alt="Inside our bookshop" class="about-img">
+    <div class="about-text">
+      <h2 class="section-title">Born From a Love of Reading</h2>
+      <p>PageTurn started in 2018 as a small shelf of handpicked books in a San Francisco coffee shop. What began as a weekend hobby quickly became something much bigger — a community of readers who believe the right book at the right moment can genuinely change a life.</p>
+      <p>Today we stock over 5,000 titles across every genre imaginable. Our team reads every book we carry and writes honest, personal notes about why it deserves a place on your shelf.</p>
+      <p>We believe bookshops should feel warm, welcoming, and a little bit magical — and we have tried to bring that spirit to every corner of our online store.</p>
+      <a routerLink="/shop" class="btn btn-primary" style="margin-top:8px">
+        <i class="fa-solid fa-book-open"></i> Explore Our Collection
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cream-dark)">
+  <div class="container">
+    <h2 class="section-title" style="text-align:center;margin-bottom:8px">What We Stand For</h2>
+    <p class="section-subtitle" style="text-align:center">The values that guide everything we do</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <i class="fa-solid fa-seedling"></i>
+        <h3>Sustainability</h3>
+        <p>We partner with publishers who use recycled paper and offset their carbon footprint. Our packaging is 100% recyclable.</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-people-group"></i>
+        <h3>Community</h3>
+        <p>Books bring people together. We run monthly reading groups, author events, and donate a portion of every sale to literacy charities.</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-star"></i>
+        <h3>Curation</h3>
+        <p>Every title on our shelves has been read and recommended by a real human. No algorithm, no filler — just books we genuinely love.</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-lock-open"></i>
+        <h3>Accessibility</h3>
+        <p>Great books should be affordable. We offer regular sales, a student discount programme, and free shipping on orders over $35.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title" style="text-align:center;margin-bottom:8px">Meet the Team</h2>
+    <p class="section-subtitle" style="text-align:center">The readers behind PageTurn</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+        <h4>Sarah Mitchell</h4>
+        <p>Founder &amp; Head Curator</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+        <h4>James Park</h4>
+        <p>Fiction Specialist</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+        <h4>Priya Sharma</h4>
+        <p>Non-Fiction Editor</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+        <h4>Tom Ellis</h4>
+        <p>Children's Books Lead</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>Have a question, a book recommendation, or just want to say hello? We would love to hear from you.</p>
+        <div class="contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div><h4>Address</h4><p>500 Book Street, San Francisco, CA 94158</p></div>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <div><h4>Phone</h4><p>+995 555 555 555</p></div>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <div><h4>Email</h4><p>JonDoe&#64;gmail.com</p></div>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <div><h4>Hours</h4><p>Mon–Fri: 9am–6pm<br>Sat–Sun: 10am–4pm</p></div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <h3>Send a Message</h3>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" class="form-control" [(ngModel)]="contactName" placeholder="Jon Doe">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" class="form-control" [(ngModel)]="contactEmail" placeholder="JonDoe@gmail.com">
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" class="form-control" [(ngModel)]="contactSubject" placeholder="How can we help?">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea class="form-control" rows="5" [(ngModel)]="contactMessage" placeholder="Your message..."></textarea>
+        </div>
+        <button class="contact-submit" (click)="submitContact()">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+        @if (contactMsg()) {
+          <p class="contact-success">{{ contactMsg() }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</section>

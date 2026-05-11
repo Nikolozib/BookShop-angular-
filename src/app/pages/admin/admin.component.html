@@ -1,0 +1,124 @@
+<div class="admin-header">
+  <div class="container">
+    <h1><i class="fa-solid fa-gauge-high"></i> Admin Dashboard</h1>
+    <p>Manage your bookshop inventory</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="admin-layout">
+    <div class="admin-form-card">
+      <h2>{{ editingId() ? 'Edit Book' : 'Add New Book' }}</h2>
+      <form [formGroup]="bookForm" (ngSubmit)="save()">
+        <div class="form-group">
+          <label>Title *</label>
+          <input type="text" formControlName="title" class="form-control" placeholder="Book title">
+        </div>
+        <div class="form-group">
+          <label>Author *</label>
+          <input type="text" formControlName="author" class="form-control" placeholder="Author name">
+        </div>
+        <div class="form-group">
+          <label>Genre *</label>
+          <select formControlName="genre" class="form-control">
+            <option value="">Select genre</option>
+            @for (g of genres; track g) { <option [value]="g">{{ g }}</option> }
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price ($) *</label>
+            <input type="number" formControlName="price" class="form-control" step="0.01" min="0" placeholder="12.99">
+          </div>
+          <div class="form-group">
+            <label>Original Price ($)</label>
+            <input type="number" formControlName="originalPrice" class="form-control" step="0.01" min="0" placeholder="Optional">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea formControlName="description" class="form-control" placeholder="Book description..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pages</label>
+            <input type="text" formControlName="pages" class="form-control" placeholder="320">
+          </div>
+          <div class="form-group">
+            <label>Language</label>
+            <input type="text" formControlName="language" class="form-control" placeholder="English">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Publisher</label>
+          <input type="text" formControlName="publisher" class="form-control" placeholder="Publisher name">
+        </div>
+        <div class="form-group">
+          <label>ISBN</label>
+          <input type="text" formControlName="isbn" class="form-control" placeholder="978-0-000-00000-0">
+        </div>
+        <div class="form-group">
+          <label>Cover Image</label>
+          <input type="file" accept="image/*" (change)="onFileChange($event)" class="file-input">
+        </div>
+        <div class="checkbox-row">
+          <label class="checkbox-group">
+            <input type="checkbox" formControlName="isNew"> New Arrival
+          </label>
+          <label class="checkbox-group">
+            <input type="checkbox" formControlName="isSale"> On Sale
+          </label>
+        </div>
+        @if (adminMsg()) {
+          <p class="admin-msg" [class.success]="adminMsgType() === 'success'" [class.error]="adminMsgType() === 'error'">
+            {{ adminMsg() }}
+          </p>
+        }
+        <div class="admin-form-actions">
+          <button type="submit" class="admin-submit" [disabled]="saving()">
+            @if (saving()) { <i class="fa-solid fa-spinner fa-spin"></i> Saving... }
+            @else { <i class="fa-solid fa-floppy-disk"></i> {{ editingId() ? 'Update Book' : 'Add Book' }} }
+          </button>
+          @if (editingId()) {
+            <button type="button" class="admin-cancel" (click)="cancelEdit()">Cancel</button>
+          }
+        </div>
+      </form>
+    </div>
+
+    <div class="admin-table-card">
+      <h2><i class="fa-solid fa-list"></i> Book Inventory</h2>
+      @if (loading()) {
+        <p style="color:var(--text-light);padding:20px"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</p>
+      } @else {
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Cover</th><th>Title</th><th>Author</th><th>Genre</th><th>Price</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (books().length === 0) {
+                <tr><td colspan="6" class="table-empty">No books yet.</td></tr>
+              }
+              @for (book of books(); track book.id) {
+                <tr>
+                  <td><img [src]="book.imageUrl || 'assets/images/placeholder.svg'" class="admin-book-thumb" [alt]="book.title"></td>
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.genre }}</td>
+                  <td>${{ book.price.toFixed(2) }}</td>
+                  <td class="admin-actions">
+                    <button class="btn-edit" (click)="startEdit(book)"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn-delete" (click)="deleteBook(book.id)"><i class="fa-solid fa-trash"></i></button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+</div>

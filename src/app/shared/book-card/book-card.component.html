@@ -1,0 +1,23 @@
+<div class="book-card">
+  <a [routerLink]="['/book', book.id]" class="book-card-link">
+    <div class="book-cover">
+      <img [src]="book.imageUrl || 'assets/images/placeholder.svg'" [alt]="book.title" loading="lazy">
+      @if (book.isNew) { <span class="badge badge-new">New</span> }
+      @if (book.isSale) { <span class="badge badge-sale">Sale</span> }
+    </div>
+    <div class="book-info">
+      <span class="book-genre">{{ book.genre }}</span>
+      <h3 class="book-title">{{ book.title }}</h3>
+      <p class="book-author">{{ book.author }}</p>
+      <div class="book-price-row">
+        @if (book.isSale && book.originalPrice) {
+          <span class="price-original">${{ book.originalPrice.toFixed(2) }}</span>
+        }
+        <span class="price-current">${{ book.price.toFixed(2) }}</span>
+      </div>
+    </div>
+  </a>
+  <button class="btn-add-cart" (click)="addToCart($event)">
+    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+  </button>
+</div>

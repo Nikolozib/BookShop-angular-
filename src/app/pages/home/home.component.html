@@ -1,0 +1,121 @@
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Welcome to PageTurn</span>
+      <h1 class="hero-title">Every Story Deserves to Be <em>Read</em></h1>
+      <p class="hero-subtitle">Discover thousands of titles across every genre. From timeless classics to the latest releases — your next favourite book is here.</p>
+      <div class="hero-actions">
+        <a routerLink="/shop" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Browse Books</a>
+        <a routerLink="/about" class="btn btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-book-card">
+        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&q=80" alt="Books">
+      </div>
+      <div class="hero-book-card">
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=80" alt="Open book">
+      </div>
+      <div class="hero-book-card featured">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=80" alt="Library">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-number">5,000+</div><div class="stat-label">Titles in Stock</div></div>
+    <div class="stat-item"><div class="stat-number">120+</div><div class="stat-label">Genres</div></div>
+    <div class="stat-item"><div class="stat-number">24hr</div><div class="stat-label">Fast Dispatch</div></div>
+    <div class="stat-item"><div class="stat-number">4.9</div><div class="stat-label">Average Rating</div></div>
+  </div>
+</div>
+
+<section class="section featured-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Featured Books</h2>
+        <p class="section-subtitle">Hand-picked titles from our curators</p>
+      </div>
+      <a routerLink="/shop" class="btn btn-outline">View All <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="genre-filters">
+      <button class="genre-filter-btn" [class.active]="selectedGenre() === 'all'" (click)="filterGenre('all')">All</button>
+      @for (genre of genres(); track genre) {
+        <button class="genre-filter-btn" [class.active]="selectedGenre() === genre" (click)="filterGenre(genre)">{{ genre }}</button>
+      }
+    </div>
+
+    @if (loading()) {
+      <div class="loading-books"><i class="fa-solid fa-spinner fa-spin"></i> Loading books...</div>
+    } @else if (featuredBooks().length === 0) {
+      <p class="no-books">No books found in this genre yet.</p>
+    } @else {
+      <div class="books-grid">
+        @for (book of featuredBooks(); track book.id) {
+          <app-book-card [book]="book"></app-book-card>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="container">
+    <div class="feature-strip-inner">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <h3>Free Shipping</h3>
+        <p>On all orders over $35. Fast and reliable delivery to your door.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+        <h3>Easy Returns</h3>
+        <p>Not happy? Return within 30 days for a full refund, no questions asked.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+        <h3>Expert Support</h3>
+        <p>Our book-lovers team is available 7 days a week to help you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--cream-dark)">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">New Arrivals</h2>
+        <p class="section-subtitle">Fresh off the press</p>
+      </div>
+      <a routerLink="/shop" class="btn btn-outline">See More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="books-grid">
+      @for (book of newArrivals(); track book.id) {
+        <app-book-card [book]="book"></app-book-card>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="container">
+    <h2 class="section-title">Join Our Reading Community</h2>
+    <p class="section-subtitle">Subscribe and get 15% off your first order, plus curated reading lists every month.</p>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email address" [(ngModel)]="newsletterEmail">
+      <button class="newsletter-btn" (click)="submitNewsletter()">
+        <i class="fa-solid fa-paper-plane"></i> Subscribe
+      </button>
+    </div>
+    @if (newsletterMsg()) {
+      <p class="newsletter-success">{{ newsletterMsg() }}</p>
+    }
+  </div>
+</section>

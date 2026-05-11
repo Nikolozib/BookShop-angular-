@@ -1,0 +1,82 @@
+@if (loading()) {
+  <div class="container" style="padding:80px 0;text-align:center;color:var(--text-light)">
+    <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem"></i>
+  </div>
+}
+
+@if (!loading() && book()) {
+  <div class="breadcrumb">
+    <div class="container">
+      <a routerLink="/">Home</a> <span>/</span>
+      <a routerLink="/shop">Shop</a> <span>/</span>
+      <span>{{ book()!.title }}</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="book-detail-layout">
+      <div class="book-detail-cover">
+        <img [src]="book()!.imageUrl || 'assets/images/placeholder.svg'" [alt]="book()!.title">
+      </div>
+      <div class="book-detail-info">
+        <span class="book-detail-genre">{{ book()!.genre }}</span>
+        <h1 class="book-detail-title">{{ book()!.title }}</h1>
+        <p class="book-detail-author">by {{ book()!.author }}</p>
+        <div class="book-detail-price">
+          @if (book()!.isSale && book()!.originalPrice) {
+            <span class="price-original">${{ book()!.originalPrice!.toFixed(2) }}</span>
+          }
+          <span class="price-current">${{ book()!.price.toFixed(2) }}</span>
+        </div>
+        <p class="book-detail-desc">{{ book()!.description || 'No description available.' }}</p>
+        <div class="book-meta-grid">
+          <div class="book-meta-item">
+            <span class="meta-label">Pages</span>
+            <span class="meta-value">{{ book()!.pages || '—' }}</span>
+          </div>
+          <div class="book-meta-item">
+            <span class="meta-label">Publisher</span>
+            <span class="meta-value">{{ book()!.publisher || '—' }}</span>
+          </div>
+          <div class="book-meta-item">
+            <span class="meta-label">Language</span>
+            <span class="meta-value">{{ book()!.language || '—' }}</span>
+          </div>
+          <div class="book-meta-item">
+            <span class="meta-label">ISBN</span>
+            <span class="meta-value">{{ book()!.isbn || '—' }}</span>
+          </div>
+        </div>
+        <div class="book-add-row">
+          <button class="btn-add-detail" (click)="addToCart()">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+          <a routerLink="/shop" class="btn btn-outline">
+            <i class="fa-solid fa-arrow-left"></i> Back to Shop
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (related().length > 0) {
+    <section class="related-section">
+      <div class="container">
+        <h2 class="section-title" style="margin-bottom:32px">You Might Also Like</h2>
+        <div class="books-grid">
+          @for (rel of related(); track rel.id) {
+            <app-book-card [book]="rel"></app-book-card>
+          }
+        </div>
+      </div>
+    </section>
+  }
+}
+
+@if (!loading() && !book()) {
+  <div class="container" style="padding:80px 0;text-align:center">
+    <i class="fa-solid fa-book-skull" style="font-size:3rem;color:var(--cream-dark);display:block;margin-bottom:16px"></i>
+    <p style="color:var(--text-light);margin-bottom:24px">Book not found.</p>
+    <a routerLink="/shop" class="btn btn-primary">Back to Shop</a>
+  </div>
+}

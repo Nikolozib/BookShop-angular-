@@ -1,0 +1,14 @@
+.not-found {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+}
+.not-found-inner { max-width: 520px; }
+.not-found-code { font-family: var(--font-serif); font-size: clamp(6rem,16vw,10rem); color: var(--cream-dark); font-weight: 700; margin-bottom: 8px; }
+.not-found-icon { font-size: 3rem; color: var(--gold); margin-bottom: 20px; display: block; }
+h2 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 14px; }
+p { color: var(--text-light); margin-bottom: 32px; }
+.not-found-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }

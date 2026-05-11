@@ -18,6 +18,30 @@
 .hero-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
 .hero-book-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(201,168,76,0.15); border-radius: var(--radius-md); overflow: hidden; transition: transform 0.3s; &:hover { transform: translateY(-4px); } img { width: 100%; aspect-ratio: 3/2; object-fit: cover; opacity: 0.85; } &.featured { grid-column: 1/-1; img { aspect-ratio: 16/7; } } }
 .featured-section { background: var(--cream); }
+
+/* Single full row on home: 4 → 3 → 2 columns; hide extras so rows are never 3+1 or 2+2 with four items */
+.books-grid--home {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .books-grid--home {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .books-grid--home > app-book-card:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .books-grid--home {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .books-grid--home > app-book-card:nth-child(n + 3) {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
   .hero-content { grid-template-columns: 1fr; }
   .hero-visual { display: none; }

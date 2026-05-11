@@ -21,23 +21,29 @@ export class CartComponent {
   processing = signal(false);
 
   checkoutForm = this.fb.group({
-    name: ['Jon Doe', Validators.required],
-    email: ['JonDoe@gmail.com', [Validators.required, Validators.email]],
-    address: ['500 Book Street', Validators.required],
-    city: ['San Francisco', Validators.required],
-    zip: ['94158', Validators.required]
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    address: ['', Validators.required],
+    city: ['', Validators.required],
+    zip: ['', Validators.required]
   });
 
   constructor() {
     this.authService.currentUser$.subscribe(user => {
-      if (user) {
-        this.checkoutForm.patchValue({ email: user.email || '' });
+      if (user?.email) {
+        this.checkoutForm.patchValue({ email: user.email });
+      }
+      if (user?.displayName) {
+        this.checkoutForm.patchValue({ name: user.displayName });
       }
     });
   }
 
   async placeOrder() {
-    if (this.checkoutForm.invalid || this.cartService.items().length === 0) return;
+    if (this.checkoutForm.invalid || this.cartService.items().length === 0) {
+      this.checkoutForm.markAllAsTouched();
+      return;
+    }
     this.processing.set(true);
     await new Promise(r => setTimeout(r, 1500));
     this.cartService.clear();

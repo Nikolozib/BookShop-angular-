@@ -56,7 +56,7 @@
     } @else if (featuredBooks().length === 0) {
       <p class="no-books">No books found in this genre yet.</p>
     } @else {
-      <div class="books-grid">
+      <div class="books-grid books-grid--home">
         @for (book of featuredBooks(); track book.id) {
           <app-book-card [book]="book"></app-book-card>
         }
@@ -96,7 +96,7 @@
       </div>
       <a routerLink="/shop" class="btn btn-outline">See More <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <div class="books-grid">
+    <div class="books-grid books-grid--home">
       @for (book of newArrivals(); track book.id) {
         <app-book-card [book]="book"></app-book-card>
       }

@@ -1367,6 +1367,48 @@ textarea.form-control {
   margin-top: 12px;
 }
 
+.policy-page {
+  padding: 48px 0 96px;
+}
+.policy-page-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.policy-page-inner .lede {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-bottom: 32px;
+  line-height: 1.75;
+}
+.policy-page-inner h2 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: var(--text-dark);
+  margin: 40px 0 14px;
+}
+.policy-page-inner h2:first-of-type {
+  margin-top: 0;
+}
+.policy-page-inner h3 {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  color: var(--text-dark);
+  margin: 28px 0 10px;
+}
+.policy-page-inner p,
+.policy-page-inner li {
+  color: var(--text-mid);
+  line-height: 1.85;
+  margin-bottom: 14px;
+}
+.policy-page-inner ul {
+  padding-left: 22px;
+  margin-bottom: 18px;
+}
+.policy-page-inner li {
+  margin-bottom: 8px;
+}
+
 @media (max-width: 900px) {
   .section {
     padding: 56px 0;
